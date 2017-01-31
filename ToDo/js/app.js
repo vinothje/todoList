@@ -22,6 +22,8 @@ app.config(function($routeProvider){
         })
 });
 
+/* service layer to add, update, delete the items. */
+
 app.service("TodoService", function(){
 
     var todoService = {};
@@ -32,21 +34,7 @@ app.service("TodoService", function(){
      {id:3, name:'three', completed:false}
     ];
 
-    /*
-
-    var groceryService = {};
-
-    groceryService.groceryItems = [
-        {id: 1, completed: true, itemName: 'milk', date: new Date("October 1, 2014 11:13:00")},
-        {id: 2, completed: true, itemName: 'cookies', date: new Date("October 1, 2014 11:13:00")},
-        {id: 3, completed: true, itemName: 'ice cream', date: new Date("October 1, 2014 11:13:00")},
-        {id: 4, completed: true, itemName: 'potatoes', date: new Date("October 2, 2014 11:13:00")},
-        {id: 5, completed: true, itemName: 'cereal', date: new Date("October 3, 2014 11:13:00")},
-        {id: 6, completed: true, itemName: 'bread', date: new Date("October 3, 2014 11:13:00")},
-        {id: 7, completed: true, itemName: 'eggs', date: new Date("October 4, 2014 11:13:00")},
-        {id: 8, completed: true, itemName: 'tortillas', date: new Date("October 5, 2014 11:13:00")}
-    ];
-*/
+/* find the item by item id */
 
     todoService.findById = function(id){
         for(var item in todoService.todoItems){
@@ -56,12 +44,14 @@ app.service("TodoService", function(){
         }
     };
 
+/* delete the item */
     todoService.removeItem = function(entry){
         var index = todoService.todoItems.indexOf(entry);
 
         todoService.todoItems.splice(index, 1);
     };
 
+/* save the item */
     todoService.save = function(entry) {
 
         var updatedItem = todoService.findById(entry.id);
@@ -85,25 +75,26 @@ app.service("TodoService", function(){
 
 });
 
+/* home controller to list the items */
+
 app.controller("HomeController", ["$scope", "TodoService", function($scope, TodoService) {
 
     $scope.todoItems = TodoService.todoItems;
     $scope.todoCount = TodoService.todoItems.length;
 
+/* delete the item */
     $scope.removeItem = function(entry){
         TodoService.removeItem(entry);
         $scope.todoCount = TodoService.todoItems.length;
     };
-/*
-    $scope.markCompleted = function(entry){
-        GroceryService.markCompleted(entry);
-    };
-    */
 
 }]);
 
+
+/* controller to add, update the items */
 app.controller("TodoAddListController", ["$scope", "$routeParams", "$location", "TodoService", function($scope, $routeParams, $location, TodoService){
 
+/* if id exists, update the item else add new item */
     if(!$routeParams.id) {
         $scope.todoItem = {id: "", completed: false, name: ""};
         $scope.todoType = "Add";
@@ -112,6 +103,7 @@ app.controller("TodoAddListController", ["$scope", "$routeParams", "$location", 
         $scope.todoType = "Edit";
     }
 
+/* save the item */
     $scope.save = function(){
         TodoService.save( $scope.todoItem );
         $location.path("/");
@@ -119,6 +111,7 @@ app.controller("TodoAddListController", ["$scope", "$routeParams", "$location", 
     
 }]);
 
+/* custom directive to list the items */
 app.directive("tbTodoItem", function(){
     return{
         restrict: "E",
