@@ -1,0 +1,11 @@
+<div class="col-xs-12">
+    <a href="#/addItem" style="margin-bottom: 10px;" class="btn btn-primary btn-lg btn-block">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add To-Do Item</a>
+        <div>Total Count: {{todoCount}}</div>
+    <ul class="list-group">
+        <li ng-repeat="item in todoItems" class="list-group-item text-center clearfix">
+            <tb-todo-item></tb-todo-item>
+        </li>
+    </ul>
+</div>

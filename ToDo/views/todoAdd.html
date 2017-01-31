@@ -1,0 +1,34 @@
+<div class="col-xs-12">
+    <div text-center">
+        <h2>{{todoType}} Task</h2>
+    </div>
+    <form name="todoForm">
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Task ID" ng-model="todoItem.id" required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Task" ng-model="todoItem.name" required>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" class="form-control" ng-model="todoItem.completed">
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-success btn-lg btn-block" ng-click="save()">
+                <span class="glyphicon glyphicon-pushpin"></span>
+                Save
+            </button>
+        </div>
+
+        <div class="form-group">
+            <a href="#/" class="btn btn-default btn-lg btn-block">
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancel
+            </a>
+        </div>
+    </form>
+
+</div>
